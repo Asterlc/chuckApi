@@ -10,4 +10,4 @@ server.listen(port, () => {
 
 server.get('/random', controller.get);
 server.get('/categories', controller.getCategories);
-server.get('/random?:key?:value', controller.getByCategory);
+// server.get('/random?y?:valu', controller.getByCategory);
