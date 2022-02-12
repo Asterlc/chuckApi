@@ -26,7 +26,6 @@ exports.getCategories = async (req, res, next) => {
 }
 exports.getByCategory = async (req, res, next) => {
     try {
-        console.log('getByCategory')
         const key = req.query
         const keyValue = key.category
         const { data } = await api.get(`/random/?${key}:${keyValue}`);
