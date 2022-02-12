@@ -2,9 +2,11 @@ const api = require('../api/api');
 
 exports.get = async (req, res, next) => {
     try {
-        console.log(`req.query :>>`, req.query)
-        if(req.query.hasOwnProperty('category')){
-            this.getByCategory()
+        console.log(`req.query.category`, req.query.category)
+        if (req.query.category != undefined) {
+            const keyValue = req.query.category
+            const { data } = await api.get(`/random?category=${keyValue}`);
+            return res.status(200).send({ data })
         }
         const { data } = await api.get('/random');
         // return res.status(200).send({ ChuckJoke: data.value })
