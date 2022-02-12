@@ -2,18 +2,23 @@ const api = require('../api/api');
 
 exports.get = async (req, res, next) => {
     try {
-        console.log(`req.query.category`, req.query.category)
-        if (req.query.category != undefined) {
-            const keyValue = req.query.category
-            const { data } = await api.get(`/random?category=${keyValue}`);
-            return res.status(200).send({ data })
+        if (req && req.query && req.query.category != undefined) {
+            try {
+                const keyValue = req.query.category
+                const { data } = await api.get(`/random?category=${keyValue}`);
+                return res.status(200).send({ ChuckJoke: data.value, category: data.categories[0] });
+            } catch (error) {
+                throw res.status(400).send({
+                    status: error.status,
+                    message: error.message
+                });
+            }
         }
         const { data } = await api.get('/random');
         // return res.status(200).send({ ChuckJoke: data.value })
         return res.status(200).send({ data })
     } catch (error) {
-        console.log(`error`, error)
-        throw error
+        throw res.status(400).send({ error })
     }
 }
 
@@ -22,8 +27,7 @@ exports.getCategories = async (req, res, next) => {
         const { data } = await api.get('/categories');
         return res.status(200).send(data);
     } catch (error) {
-        console.log(`error`, error)
-        throw error
+        throw res.status(400).send({ message: error.message })
     }
 }
 exports.getByCategory = async (req, res, next) => {
