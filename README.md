@@ -1,3 +1,3 @@
 # chuckApi
 
-API publica com piadas sobre Chuck Norris em variados gêneros.
++ API publica com piadas sobre Chuck Norris.
